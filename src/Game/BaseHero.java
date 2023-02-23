@@ -9,7 +9,13 @@ import java.util.Random;
 // и т.п. У лучника добавить поле расстояние поражения.
 //Создать различные виды вооружения, например, меч, лук, лопата.
 // Обеспечить, чтобы определенный тип воина мог нести только определенной оружие. Можно на определенное оружие добавить уникальные признаки, например, у лука - дальность стрельбы.
-public abstract class BaseHero <W extends Weapon>  {
+
+//На основе работы на уроке.
+//Создать класс щита, разработать разные типы щитов, добавить в семейство классов Warriors обобщения в виде щитов. Реструктуризировать код в конечных классах семейства Warriors.
+//Добавить метод определения минимального щита в команде.
+//* Продумать, как можно сделать воина без щита.
+
+public abstract class BaseHero <W extends Weapon , S extends  Shield>  {
 
 
     private int health;
@@ -18,10 +24,26 @@ public abstract class BaseHero <W extends Weapon>  {
 
     protected W weapon;
 
+    protected S shield;
+
+    private boolean shielded;
+
     protected BaseHero(int health, String name, W weapon) {
         this.health = health;
         this.name = name;
         this.weapon = weapon;
+    }
+
+    protected BaseHero(int health, String name, W weapon, S shield) {
+        this.health = health;
+        this.name = name;
+        this.weapon = weapon;
+        this.shield = shield;
+        this.shielded = true;
+    }
+
+    public boolean isShielded() {
+        return shielded;
     }
 
     public int damageFork(){
@@ -37,6 +59,8 @@ public abstract class BaseHero <W extends Weapon>  {
 
 
     }
+
+    
 
     public boolean reduceHealth(int damage){
         health -= damage;
@@ -70,10 +94,22 @@ public abstract class BaseHero <W extends Weapon>  {
 
     @Override
     public String toString() {
-        return "BaseHero{" +
-                "health=" + health +
-                ", name='" + name + '\'' +
-                ", weapon=" + weapon +
-                '}';
+
+        if (shielded){
+            return "BaseHero{" +
+                    "health=" + health +
+                    ", name='" + name + '\'' +
+                    ", weapon=" + weapon +
+                    ", shield=" + shield +
+                    '}';
+        }
+        else {
+            return "BaseHero{" +
+                    "health=" + health +
+                    ", name='" + name + '\'' +
+                    ", weapon=" + weapon +
+                    '}';
+        }
     }
+
 }

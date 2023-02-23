@@ -1,10 +1,10 @@
 package Game;
 
 
+import Game.Shields.HandShield;
+import Game.Shields.Manlet;
 import Game.Weapons.Melee;
 import Game.Weapons.Ranged;
-
-import java.util.List;
 
 public class Main {
 
@@ -16,7 +16,7 @@ public class Main {
         squadF.add(new Footman(55, "moe", new Melee("sword", 10)));
         squadF.add(new Footman(55, "doe", new Melee("axe", 20)));
 
-        for (Footman item : squadF) {
+        /*for (Footman item : squadF) {
             System.out.println(item);
         }
 
@@ -25,7 +25,7 @@ public class Main {
         System.out.println(squadF.getSumDamage());
 
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
+*/
         Team<BaseHero> squadA = new Team<>();
 
         squadA.add(new Archer(15, "jonh", new Ranged("bow", 5, 50)));
@@ -33,7 +33,7 @@ public class Main {
         squadA.add(new Footman(55, "carl", new Melee("sword", 10)));
         squadA.add(new Footman(55, "earl", new Melee("axe", 20)));
 
-        for (BaseHero item : squadA) {
+       /* for (BaseHero item : squadA) {
             System.out.println(item);
         }
 
@@ -60,7 +60,21 @@ public class Main {
         }
         else {
             System.out.println(footman2 + " is Winner");
+        }*/
+
+        Team<BaseHero> squadS = new Team<>();
+
+        squadS.add(new Archer(15, "jonh", new Ranged("bow", 5, 50)));
+        squadS.add(new Archer(15, "jonathan", new Ranged("crossbow", 15, 25),new Manlet("Aegis" , 30, false)));
+        squadS.add(new Footman(55, "carl", new Melee("sword", 10), new HandShield("Pridwen" , 20, true)));
+        squadS.add(new Footman(55, "earl", new Melee("axe", 20)));
+
+        for (BaseHero item : squadS) {
+            System.out.println(item);
         }
+
+
+        System.out.println(squadS.minArmorToString(squadS.minArmor()));
     }
 
 }

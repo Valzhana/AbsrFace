@@ -31,7 +31,34 @@ public class Team<T extends BaseHero> implements Iterable<T> {
         return teamHealth;
     }
 
+    public T minArmor(){
+        T element = null;
+                for (T hero : dreamTeam) {
+            if (hero.isShielded()) {
+                if (element == null) {
+                    element = hero;
+                }
+                BaseHero shielded = (BaseHero) hero;
+                if ( element.shield.shieldHealth() > shielded.shield.shieldHealth()) {
+                    element = hero;
+                }
+            }
+
+        }
+
+        return element;
+    }
+
+    public String minArmorToString(T t){
+        if (t == null){
+            return "there is no one with a shield";
+        }
+        return t + " is the weakest shield";
+
+    }
+
     public int getMaxRange() {
+
         int maxRange = 0;
         for (T hero : dreamTeam) {
 
@@ -62,5 +89,7 @@ public class Team<T extends BaseHero> implements Iterable<T> {
 
         return sumDamage;
     }
+
+
 
 }
