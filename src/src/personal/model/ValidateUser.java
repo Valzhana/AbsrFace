@@ -4,8 +4,8 @@ import java.util.regex.Pattern;
 
 public class ValidateUser {
 
-    private Pattern patternName = Pattern.compile("^\\S*$");
-    private Pattern patternPhone = Pattern.compile("^\\d*$");
+    private final Pattern patternName = Pattern.compile("^\\S*$");
+    private final Pattern patternPhone = Pattern.compile("^\\d*$");
 
 
     public void check(User user) throws Exception {
@@ -20,13 +20,5 @@ public class ValidateUser {
         if (!patternPhone.matcher(user.getPhone()).find()){
             throw new Exception("invalid Phone");
         }
-
-
-
-
-
-
     }
-
-
 }

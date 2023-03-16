@@ -2,16 +2,16 @@ package src.personal.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 
 public class RepositoryFile implements Repository {
     private Mapper mapper;
     private FileOperation fileOperation;
-
     public RepositoryFile(FileOperation fileOperation, Mapper mapper) {
         this.fileOperation = fileOperation;
         this.mapper = mapper;
     }
-
 
     @Override
     public List<User> getAllUsers() {
@@ -24,13 +24,13 @@ public class RepositoryFile implements Repository {
     }
 
     @Override
-    public String CreateUser(User user) {
+    public String createUser(User user) {
 
         List<User> users = getAllUsers();
         int max = 0;
         for (User item : users) {
             int id = Integer.parseInt(item.getId());
-            if (max < id){
+            if (max < id) {
                 max = id;
             }
         }
@@ -41,34 +41,78 @@ public class RepositoryFile implements Repository {
         saveRepository(users);
         return id;
     }
-
     private void saveRepository(List<User> users) {
         List<String> lines = new ArrayList<>();
-        for (User item: users) {
+        for (User item : users) {
             lines.add(mapper.map(item));
         }
         fileOperation.saveAllLines(lines);
     }
-
-    public void deleteUser(String userId){
+    @Override
+    public void deleteUser(String userId) {
         List<User> users = getAllUsers();
 
-
         User foundUser = null;
-
-        for (User user : users){
-
-            if (user.getId().equals(userId)){
+        for (User user : users) {
+            if (user.getId().equals(userId)) {
                 foundUser = user;
             }
         }
-
-        if (foundUser!=null){
+        if (foundUser != null) {
             users.remove(foundUser);
         }
-
         saveRepository(users);
-
     }
 
+    @Override
+    public void updateUserName(String userId) {
+        List<User> users = getAllUsers();
+        User foundUser = null;
+        for (User user : users) {
+            if (user.getId().equals(userId)) {
+                foundUser = user;
+            }
+        }
+        if (foundUser != null) {
+            String firstName = prompt("Введите имя:\n ");
+            foundUser.setFirstName(firstName);
+        }
+        saveRepository(users);
+    }
+    @Override
+    public void updateLastName(String userId) {
+        List<User> users = getAllUsers();
+        User foundUser = null;
+        for (User user : users) {
+            if (user.getId().equals(userId)) {
+                foundUser = user;
+            }
+        }
+        if (foundUser != null) {
+            String lastName = prompt("Введите фамилию:\n ");
+            foundUser.setLastName(lastName);
+        }
+        saveRepository(users);
+    }
+    @Override
+    public void updatePhoneNumber(String userId) {
+        List<User> users = getAllUsers();
+        User foundUser = null;
+        for (User user : users) {
+            if (user.getId().equals(userId)) {
+                foundUser = user;
+            }
+        }
+        if (foundUser != null) {
+            String phoneNumber = prompt("Введите номер телефона:\n");
+            foundUser.setPhone(phoneNumber);
+        }
+        saveRepository(users);
+    }
+
+    public String prompt(String message) {
+        Scanner in = new Scanner(System.in);
+        System.out.print(message);
+        return in.nextLine();
+    }
 }

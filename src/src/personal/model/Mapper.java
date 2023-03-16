@@ -2,8 +2,7 @@ package src.personal.model;
 
 public interface Mapper {
 
-    public String map(User user);
+    String map(User user);
 
-    public User map(String line);
-
+    User map(String line);
 }

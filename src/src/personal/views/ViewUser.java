@@ -1,10 +1,12 @@
 package src.personal.views;
 
-import personal.controllers.UserController;
-import personal.model.User;
+import src.personal.controllers.UserController;
+import src.personal.model.User;
 
 import java.util.List;
 import java.util.Scanner;
+
+import static java.lang.Integer.parseInt;
 
 public class ViewUser {
 
@@ -36,10 +38,13 @@ public class ViewUser {
                 case DELETE:
                     caseDeleted();
                     break;
+                case UPDATE:
+                    caseUpdate();
+                    break;
             }
             }
             catch  (Exception ee){
-                System.out.printf("%s something wrong \n ", ee.getMessage());
+                System.out.printf("Error: %s\n ", ee.getMessage());
             }
         }
     }
@@ -47,7 +52,7 @@ public class ViewUser {
     private void caseDeleted() {
         String id = prompt("Идентификатор пользователя: ");
         userController.deleteUser(id);
-        System.out.println("user deleted");
+        System.out.println("Данные удалены");
     }
 
     private void caseCreate() throws Exception {
@@ -73,11 +78,29 @@ public class ViewUser {
             System.out.println(user);
         }
     }
-
-    private String prompt(String message) {
+    public void caseUpdate() {
+        String id = prompt("Идентификатор пользователя: ");
+        String number = String.valueOf(parseInt(prompt("""
+                1 - изменить имя
+                2 - изменить фамилию
+                3 - изменить номер телефона
+                """)));
+        switch (number) {
+            case "1" -> {
+                userController.updateUserName(id);
+            }
+            case "2" -> {
+                userController.updateLastName(id);
+            }
+            case "3" -> {
+                userController.updatePhoneNumber(id);
+            }
+        }
+        System.out.println("Данные сохранены");
+    }
+    public String prompt(String message) {
         Scanner in = new Scanner(System.in);
         System.out.print(message);
         return in.nextLine();
     }
-
 }

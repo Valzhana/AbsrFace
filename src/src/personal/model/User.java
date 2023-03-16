@@ -29,8 +29,9 @@ public class User {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public String setFirstName(String firstName) {
         this.firstName = firstName;
+        return firstName;
     }
 
     public String getLastName() {
